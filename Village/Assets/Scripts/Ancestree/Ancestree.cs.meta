@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 2af894a6965007f4482995b20d17dc3c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - bodyPrefab: {fileID: 3739871193089851077, guid: 27862ca16fe767f4890a043da5b5ec7f,
+      type: 3}
+  - emptyPrefab: {fileID: 6308669390531790277, guid: b05bc90220530f642aa34b5b4c8b23fa,
+      type: 3}
+  - peopleParent: {instanceID: 0}
+  - cam: {instanceID: 0}
+  - subject: {instanceID: 0}
+  executionOrder: 0
+  icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
