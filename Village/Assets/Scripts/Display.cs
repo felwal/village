@@ -11,7 +11,7 @@ public class Display : MonoBehaviour {
     public Text popDisplay;
     public Text gSpeedDisplay;
 
-    // conacts
+    // contacts
     public Text nameDisplay;
     public Text genDisplay;
     public Text speedDisplay;
@@ -24,17 +24,16 @@ public class Display : MonoBehaviour {
     // // // //
 
     void Start() {
-
         wc = GameObject.Find("GameWorld").GetComponent<WorldControl>();
-
     }
+
     void Update() {
-        
         UpdateDisplays();
-
     } 
-    void UpdateDisplays() {
 
+    //
+
+    void UpdateDisplays() {
         // world
         maxPopDisplay.text = "Max pop: " + Stat.MaxPop;
         popDisplay.text = "Pop: " + Stat.People.Count;
@@ -55,16 +54,15 @@ public class Display : MonoBehaviour {
             speedDisplay.text = "";
             staminaDisplay.text = "";
         }
-
     }
     
     // buttons
+
     public void LoadTree() {
 
         Ancestree.SubjectGenome = contactGenome;
         SceneManager.LoadScene("Ancestree");
 
     }
-
 
 }

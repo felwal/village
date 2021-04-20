@@ -47,11 +47,11 @@ public static class Ling {
     public static readonly List<string> liquids = GetLiquids();
     public static readonly List<string> glides = GetGlides();
     
-    //
+    // // // //
 
     // categories
-    private static List<string> GetObstruents() {
 
+    private static List<string> GetObstruents() {
         List<string> obstruents = new List<string>();
 
         obstruents.AddRange(GetConsonantsByManner(Manner.Plosive));
@@ -60,8 +60,8 @@ public static class Ling {
 
         return obstruents;
     }
+    
     private static List<string> GetSonorants() {
-
         List<string> sonorants = new List<string>();
         
         sonorants.AddRange(GetConsonantsByManner(Manner.Approximant));
@@ -71,8 +71,8 @@ public static class Ling {
 
         return sonorants;
     }
+    
     private static List<string> GetLiquids() {
-
         List<string> liquids = new List<string>();
 
         liquids.AddRange(GetConsonantsByManner(Manner.ApproximantLateral, true));
@@ -80,6 +80,7 @@ public static class Ling {
 
         return liquids;
     }
+    
     private static List<string> GetGlides() {
         // säker att laterala ska inkluderas?
 
@@ -93,7 +94,6 @@ public static class Ling {
     }
 
     public static List<string> GetObstruents(bool voiced) {
-        
         List<string> obstruents = new List<string>();
 
         obstruents.AddRange(GetConsonantsByManner(Manner.Plosive, voiced));
@@ -104,8 +104,8 @@ public static class Ling {
     }
 
     // manner & place
-    public static List<string> GetConsonants(Manner manner, Place place) {
 
+    public static List<string> GetConsonants(Manner manner, Place place) {
         List<string> cons = new List<string>();
         string con;
         if ((con = consonants[(int)manner, (int)place, 0]) != " ") { cons.Add(con); }
@@ -113,8 +113,8 @@ public static class Ling {
 
         return cons;
     }
+    
     public static List<string> GetConsonants(bool voiced) {
-
         int voicedInt = Stat.BoolToInt(voiced);
         List<string> cons = new List<string>();
         for (int m = 0; m < consonants.GetLength(0); m++) {
@@ -128,8 +128,8 @@ public static class Ling {
 
         return cons;
     }
+    
     public static List<string> GetConsonantsByManner(Manner manner) {
-
         List<string> cons = new List<string>();
         for (int p = 0; p < consonants.GetLength(1); p++) {
 
@@ -140,8 +140,8 @@ public static class Ling {
 
         return cons;
     }
+    
     public static List<string> GetConsonantsByManner(Manner manner, bool voiced) {
-
         int voicedInt = Stat.BoolToInt(voiced);
         List<string> cons = new List<string>();
         for (int p = 0; p < consonants.GetLength(1); p++) {
@@ -152,8 +152,8 @@ public static class Ling {
 
         return cons;
     }
+    
     public static List<string> GetConsonantsByPlace(Place place) {
-
         List<string> cons = new List<string>();
         for (int m = 0; m < consonants.GetLength(0); m++) {
 
@@ -164,8 +164,8 @@ public static class Ling {
 
         return cons;
     }
+    
     public static List<string> GetConsonantsByPlace(Place place, bool voiced) {
-
         int voicedInt = Stat.BoolToInt(voiced);
         List<string> cons = new List<string>();
         for (int m = 0; m < consonants.GetLength(0); m++) {
@@ -178,8 +178,8 @@ public static class Ling {
     }
     
     // sonority
-    public static List<string> GetConsonants(Soronity soronity) {
 
+    public static List<string> GetConsonants(Soronity soronity) {
         switch(soronity) {
             case Soronity.Click: break;
             case Soronity.PlosiveVoiceless: return GetConsonantsByManner(Manner.Plosive, false);
@@ -195,30 +195,32 @@ public static class Ling {
         }
         return new List<string>();
     }
+    
     public static List<string> GetConsonantsRangeMax(Soronity max) {
-
         List<string> range = new List<string>();
         for (int i = 0; i <= (int)max; i++) {
             range.AddRange(GetConsonants((Soronity)i));
         }
         return range;
     }
+    
     public static List<string> GetConsonantsRangeMin(Soronity min) {
-
         List<string> range = new List<string>();
         for (int i = (int)min; i <= (int)Soronity.VowelLow; i++) {
             range.AddRange(GetConsonants((Soronity)i));
         }
         return range;
     }
+    
     public static List<string> GetConsonantsRange(Soronity min, Soronity max) {
-
         List<string> range = new List<string>();
         for (int i = (int)min; i <= (int)max; i++) {
             range.AddRange(GetConsonants((Soronity)i));
         }
         return range;
     }
+
+    //
 
     public enum Soronity {
         Click,
@@ -265,6 +267,8 @@ public static class Ling {
         public Manner manner { get; set; }
         public bool voiced { get; set; }
 
+        // // // //
+
         public Consonant(string consonant) {
             character = consonant;
             manner = (Manner)0;
@@ -283,8 +287,8 @@ public static class Ling {
                     }
                 }
             }
-
         }
+        
         public Consonant(Manner manner, Place place, bool voiced) {
             this.manner = manner;
             this.place = place;
@@ -292,8 +296,9 @@ public static class Ling {
             character = consonants[(int)manner, (int)place, Stat.BoolToInt(voiced)];
         }
 
-        public Soronity GetSoronity() {
+        //
 
+        public Soronity GetSoronity() {
             if (manner == Manner.Plosive && !voiced) { return Soronity.PlosiveVoiceless; }
             else if (manner == Manner.Plosive && voiced) { return Soronity.PlosiveVoiced; }
             else if (manner == Manner.Fricative && !voiced) { return Soronity.FricativeVoiceless; }
@@ -313,12 +318,16 @@ public static class Ling {
     static int OnsetLength(Language lang) {
         return Stat.RandInt(lang.onsetMin, lang.onsetMax);
     }
+    
     static int CodaLength(Language lang) {
         return Stat.RandInt(lang.codaMin, lang.codaMax);
     }
+    
     static int SyllableCount(Language lang) {
         return Stat.RandNorm(lang.sylMin, lang.sylMax, lang.sylMean, lang.sylDev);
     }
+
+    //
 
     static string Syllable(Language lang) {
 
@@ -342,6 +351,7 @@ public static class Ling {
         return lang.Romanize(onset) + lang.Romanize(nucleous) + lang.Romanize(coda);
         
     }
+    
     public static string Name(Language lang) {
         
         string name = "";
@@ -352,13 +362,15 @@ public static class Ling {
         return Stat.CapitalizeFirstLetter(name);
     }
 
+    //
+
     public static string RandPhoneme(List<string> phonems) {
         return Stat.RandStringFromList(phonems);
     }
 
 }
 
-//
+// languages
 
 public class Language {
 
@@ -398,6 +410,8 @@ public class Language {
     public int sylMean = 2;
     public int sylDev = 1;
 
+    // // // //
+
     public Language(int onsetMin, int onsetMax, int codaMin, int codaMax, int sylMin, int sylMax, int sylMean, int sylDev, string[] vowels, string[] consonants) {
         this.vowels = vowels;
         this.consonants = consonants;
@@ -410,10 +424,12 @@ public class Language {
         this.sylMean = sylMean;
         this.sylDev = sylDev;
     }
+    
     public Language() {}
 
-    public virtual string Romanize(List<string> phonems) {
-        
+    //
+
+    public virtual string Romanize(List<string> phonems) {   
         string letters = "";
         foreach (string phonem in phonems) {
             letters += Romanize(phonem);
@@ -421,19 +437,26 @@ public class Language {
         
         return letters;
     }
+    
     public virtual string Romanize(string phonem) {
         return phonem;
     }
 
+    //
+
     public virtual List<string> AllowedOnset(List<string> preceding, int length) {
         return new List<string>(consonants);
     }
+    
     public virtual List<string> AllowedNucleous() {
         return new List<string>(vowels);
     }
+    
     public virtual List<string> AllowedCoda(List<string> preceding) {
         return new List<string>(consonants);
     }
+
+    //
 
     public virtual List<string> Coda() {
         return new List<string>();
@@ -455,8 +478,9 @@ public class English : Language {
         sylMin = 1;
     }
 
-    public override string Romanize(List<string> phonemes) {
-        
+    //
+
+    public override string Romanize(List<string> phonemes) {  
         string letters = "";
         foreach (string phoneme in phonemes) {
             letters += Romanize(phoneme);
@@ -464,8 +488,8 @@ public class English : Language {
         
         return letters;
     }
+    
     public override string Romanize(string phoneme) {
-
         switch (phoneme) { 
             case "": break;
             case "æ": return "a";
@@ -521,8 +545,9 @@ public class English : Language {
         return "";
     }
 
-    public override List<string> AllowedOnset(List<string> preceding, int length) {
+    //
 
+    public override List<string> AllowedOnset(List<string> preceding, int length) {
         //return OldOnset(preceding);
         int count = preceding.Count;
         List<string> onset = new List<string>(consonants);
@@ -555,11 +580,12 @@ public class English : Language {
 
         return onset;        
     }
+    
     public override List<string> AllowedNucleous() {
         return new List<string>(vowels);
     }
+    
     public override List<string> AllowedCoda(List<string> preceding) {
-
         int count = preceding.Count;
         List<string> coda = new List<string>(consonants);
 
@@ -596,8 +622,9 @@ public class English : Language {
         return coda;
     }
 
-    public List<string> OldOnset(List<string> preceding) {
+    //
 
+    public List<string> OldOnset(List<string> preceding) {
         if (preceding.Count == 0) {
             return new List<string> { "b","d","f","g","h","j","k","l","m","n","p","ɹ","s","t","v","w","z"/*,"ʒ"*/,"dʒ","ʃ","tʃ","θ","ð"/*,"ŋ"*/ };
         }
@@ -625,12 +652,9 @@ public class English : Language {
             }
         }
         return new List<string>();
-
-
     }
 
     public override List<string> Coda() {
-
         List<string> coda = new List<string>();
         int length = Stat.RandInt(codaMin, codaMax);
 
@@ -654,8 +678,9 @@ public class Zhroom : Swedish {
         };
     }
 
-    public override string Romanize(string phoneme) {
+    //
 
+    public override string Romanize(string phoneme) {
         switch (phoneme) {
             case "": break;
             case "a": return "a";
@@ -702,7 +727,6 @@ public class Zhroom : Swedish {
         return "";
     }
 
-
 }
 
 public class Shfe : Swedish {
@@ -720,8 +744,9 @@ public class Shfe : Swedish {
         sylMean = 1;
     }
 
-    public override string Romanize(string phoneme) {
+    //
 
+    public override string Romanize(string phoneme) {
         switch (phoneme) {
             case "": break;
             case "e": return "ë";
@@ -747,8 +772,9 @@ public class Shfe : Swedish {
         return "";
     }
 
-    public override List<string> AllowedOnset(List<string> preceding, int length) {
+    //
 
+    public override List<string> AllowedOnset(List<string> preceding, int length) {
         int count = preceding.Count;
         List<string> onset = new List<string>(consonants);
 
@@ -773,11 +799,12 @@ public class Shfe : Swedish {
 
         return onset;        
     }
+    
     public override List<string> AllowedNucleous() {
         return new List<string>(vowels);
     }
+    
     public override List<string> AllowedCoda(List<string> preceding) {
-
         int count = preceding.Count;
         List<string> coda = new List<string>(consonants);
 
@@ -820,8 +847,9 @@ public class Swedish : Language {
         sylMax = 2;
     }
 
-    public override string Romanize(List<string> phonemes) {
-        
+    //
+
+    public override string Romanize(List<string> phonemes) { 
         string letters = "";
         foreach (string phoneme in phonemes) {
             letters += Romanize(phoneme);
@@ -829,8 +857,8 @@ public class Swedish : Language {
         
         return letters;
     }
+    
     public override string Romanize(string phoneme) {
-
         string letter = "";
         switch (phoneme) {
             case "": break;
@@ -887,8 +915,9 @@ public class Swedish : Language {
         return letter;
     }
 
-    public override List<string> AllowedOnset(List<string> preceding, int length) {
+    //
 
+    public override List<string> AllowedOnset(List<string> preceding, int length) {
         int count = preceding.Count;
         List<string> onset = new List<string>(consonants);
 
@@ -918,11 +947,12 @@ public class Swedish : Language {
 
         return onset;        
     }
+    
     public override List<string> AllowedNucleous() {
         return new List<string>(vowels);
     }
+    
     public override List<string> AllowedCoda(List<string> preceding) {
-
         int count = preceding.Count;
         List<string> coda = new List<string>(consonants);
 
@@ -958,7 +988,6 @@ public class Swedish : Language {
 
         return coda;
     }
-
 
 }
 

@@ -22,23 +22,20 @@ public class WorldControl : MonoBehaviour {
     // // // //
 
     void Start() {
-
         int ancestorsCount = Stat.RandInt(5, 10); // 4, 8
         for (int a = 0; a < ancestorsCount; a++) {
             Stat.RandNpc(npcPrefab, npcParent);
             Stat.RandTree(treePrefab, npcParent);
         }
-        
     }
 
     // buttons
+    
     public void ChangeSpeed() {
-
         if (speed < 8) {
             speed *= 2;
         }
         else { speed = 1; }
-
     }
 
 }

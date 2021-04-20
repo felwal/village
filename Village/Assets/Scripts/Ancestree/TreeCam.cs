@@ -25,17 +25,15 @@ public class TreeCam : MonoBehaviour {
     // // // //
 
     void Start() {
-
         gameWorld = GameObject.Find("GameWorld").transform;
         people = GameObject.Find("GameWorld/People").transform;
         tree = people.GetComponent<Ancestree>();
         trans = transform;
 
         targetPosCirc = CalcPosCirc();
-
     }
+    
     void FixedUpdate() {
-
         switch (tree.mode) {
             case Ancestree.Mode.AncCirc: HomeCirc(); break;
             case Ancestree.Mode.AncFrac: HomeFrac(); break;
@@ -43,12 +41,11 @@ public class TreeCam : MonoBehaviour {
 
         MoveMan();
         ZoomMan();
-
     }
 
     // movements
-    void HomeFrac() {
 
+    void HomeFrac() {
         if (targetKeyQueue.Count > 0) {
 
             Vector2 targetLocalPos = Ancestree.positions[targetKeyQueue[0]];
@@ -73,10 +70,9 @@ public class TreeCam : MonoBehaviour {
                 targetKeyQueue.RemoveAt(0);
             }
         }
-
     }
+    
     void HomeCirc() {
-
         Vector2 pos = Stat.ToVector2(transform.position);
 
         float v = 0.05f;
@@ -88,11 +84,9 @@ public class TreeCam : MonoBehaviour {
         else {
             transform.position = Stat.ToVector3(targetPosCirc, -10);
         }
-
     }
-    
-    void MoveMan() {
 
+    void MoveMan() {
         float v = 0.1f; //0.01f * Mathf.Abs(transform.position.z);
 
         if (Input.GetKey(KeyCode.W)) {
@@ -107,10 +101,9 @@ public class TreeCam : MonoBehaviour {
         if (Input.GetKey(KeyCode.A)) {
             transform.position += new Vector3(-v, 0);
         } // left
-
     }
+    
     void ZoomMan() {
-
         float v = 0.02f * Mathf.Abs(transform.position.z);
 
         // zoom in 
@@ -122,11 +115,11 @@ public class TreeCam : MonoBehaviour {
         if (Input.GetKey(KeyCode.Q)) {
             transform.position += new Vector3(0, 0, -v);
         }
-
     }
 
+    //
+
     public static Vector3 CalcPosCirc() {
-        
         int gen = targetKey.Length;
         if (gen == 0) { return new Vector3(0, 0); }
 
@@ -145,7 +138,6 @@ public class TreeCam : MonoBehaviour {
 
             return targetPos;
         }
-
     }
 
 }

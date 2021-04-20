@@ -12,7 +12,6 @@ public class Player : MonoBehaviour {
     // // // //
 
     void Start() {
-
         genome = new Genome(new Genome(0), new Genome(1));
         
         rb = GetComponent<Rigidbody2D>();
@@ -22,12 +21,6 @@ public class Player : MonoBehaviour {
         transform.localScale = genome.scale;
         sr = GetComponent<SpriteRenderer>();
         sr.color = genome.color;
-
-    }
-    void FixedUpdate() {
-        
-        Move();
-
     }
 
     void Update() {
@@ -35,13 +28,19 @@ public class Player : MonoBehaviour {
         //sr.color = Stat.AvgColor();
     }
 
+    void FixedUpdate() {
+        Move();
+    }
+
+    //
+
     void ExitApplication() {
         if (Time.deltaTime > 0.5 || Stat.People.Count == 0) { UnityEditor.EditorApplication.isPlaying = false; }
     }
 
     // movement
+
     public void Move() {
-        
         if (Input.GetKey(KeyCode.W)) {
             transform.position += new Vector3(0, WorldControl.speed*genome.speed/100);
         } // up
@@ -54,25 +53,20 @@ public class Player : MonoBehaviour {
         if (Input.GetKey(KeyCode.A)) {
             transform.position += new Vector3(-WorldControl.speed*genome.speed/100, 0);
         } // left
-
     }
 
     // collisions
-    private void OnCollisionEnter2D(Collision2D other) {
 
+    private void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.tag == "Human") {
             Display.contactGenome = other.gameObject.GetComponent<NPC>().genome;
         }
-
     }
+
     private void OnCollisionExit2D(Collision2D other) {
-        
         if (other.gameObject.tag == "Human") {
             Display.contactGenome = null;
         }
-
     }
 
 }
-
-// move med trigonometriska ettan

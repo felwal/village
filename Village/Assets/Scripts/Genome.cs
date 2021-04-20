@@ -29,8 +29,9 @@ public class Genome {
     //int strength;
     //int hitpoints;
 
-    public Genome(Genome P0, Genome P1) {
-        
+    // // // //
+
+    public Genome(Genome P0, Genome P1) {   
         parents.Add(P0);
         parents.Add(P1);
         Genome G00, G01, G10, G11;
@@ -55,10 +56,9 @@ public class Genome {
         color = Stat.Mutate() ? Stat.RandColor() : Stat.DominantColor(
             Stat.Coinflip() ? G00.color : G01.color, 
             Stat.Coinflip() ? G10.color : G11.color);
+    }
 
-    } 
     public Genome(int sex = -1) {
-
         generation = 1;
         this.sex = sex != 0 || sex != 1 ? Stat.IntFlip() : sex;
         lang = Stat.RandLang();
@@ -68,12 +68,15 @@ public class Genome {
         stamina = 12 - speed;
         color = Stat.RandColor();
         scale = Stat.ToVector3(Stat.RandExp(1, 1.5f, false), 1);
-
     }
+
+    //
 
     void Awake() {
         //ancestors[""] = this;
     }
+
+    //
 
     public Genome GetAncestor(string key) {
         return key.Length == 0 ? this : parents[int.Parse(key.Substring(0, 1))].GetAncestor(key.Substring(1));

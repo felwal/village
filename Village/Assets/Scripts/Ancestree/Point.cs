@@ -15,7 +15,6 @@ public class Point : MonoBehaviour {
     // // // //
 
     void Start() {
-
         tree = GameObject.Find("GameWorld/People").GetComponent<Ancestree>();
         //genome = GetComponent<Genome>();
 

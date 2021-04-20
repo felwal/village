@@ -39,7 +39,6 @@ public class Ancestree : MonoBehaviour {
     // // // //
 
     void Start() {
-
         ΔR = GenR(genMin-1) / 2; // = 4
         if (!testing) { genMax = SubjectGenome.generation; }
 
@@ -51,19 +50,17 @@ public class Ancestree : MonoBehaviour {
             case Mode.AncFrac: SpawnAncestorsFrac(); break;
             default: break;
         }
-
     }
+    
     void FixedUpdate() {
-
         switch (mode) {
             case Mode.AncCirc: MoveAncestorsCirc(); break;
         }
-
     }
 
     // anc circle -1
-    void SpawnAncestorsCirc() {
 
+    void SpawnAncestorsCirc() {
         for (int gen = 0; gen < genMax; gen++){
 
             genParents[gen] = InstantiateEmpty(transform, "gen " + gen).transform;
@@ -92,11 +89,10 @@ public class Ancestree : MonoBehaviour {
                 }
             }
         }
-
     }
+    
     void MoveAncestorsCirc() {
         // sqr?
-
         float camMag = TreeCam.Mag;
         for(int gen = genMin; gen < genMax; gen++) {
 
@@ -122,13 +118,11 @@ public class Ancestree : MonoBehaviour {
             genParents[gen].position = Stat.VectorByAngle(genMag, genAngle);
             
         }
-
-
     }
     
     // anc fractal -2
-    void SpawnAncestorsFrac() {
 
+    void SpawnAncestorsFrac() {
         // calc
         Vector2 childPos = new Vector2(0,0);
         positions.Add("", childPos);
@@ -162,10 +156,9 @@ public class Ancestree : MonoBehaviour {
         }
 
         bodyPrefab.transform.localScale = new Vector3(1,1,1);
-
     }
+    
     void CalcParentsFrac(string childKey, Vector2 childPos, float l, int dir) {
-
         if (childKey.Length < genMax) {
 
             string motherKey = childKey + "0";
@@ -187,12 +180,11 @@ public class Ancestree : MonoBehaviour {
             CalcParentsFrac(motherKey, motherPos, l/2, dir);
             CalcParentsFrac(fatherKey, fatherPos, l/2, -dir);
         }
-
     }
 
     // circle fractal 0
-    void SpawnDesAnc() {
 
+    void SpawnDesAnc() {
         Dictionary<string, float> angles = new Dictionary<string, float>();
 
         const int ancMax = 12;
@@ -262,34 +254,36 @@ public class Ancestree : MonoBehaviour {
 
 
         }
-
     }
 
     // tools
+
     public static int GenPop(int gen) {
         return (int)Mathf.Pow(2, gen);
     }
+    
     public static float GenR(int gen) {
         return (GenPop(gen) * ΔL) / (2 * Mathf.PI); // ur omkrets
     }
+    
     public static float GenMagMax(int gen) {
         return GenR(gen) - ΔR * gen; // = genR - genP (något samband?)
     }
 
     // other
+
     static string GetKey(int gen, int n) {
-        
         string key = Convert.ToString(n, 2);
         while (key.Length < gen) { key = "0" + key; }
         if (gen == 0) { key = ""; }
         return key;
-
     }
+    
     static string GetChildKey(string parentKey) {
         return parentKey.Substring(0, parentKey.Length-1);
     }
+    
     static void CopyChars(Genome original, Genome copy) {
-
         // constructor / struct?
 
         copy.color = original.color;
@@ -301,10 +295,9 @@ public class Ancestree : MonoBehaviour {
         copy.scale = original.scale;
         copy.generation = original.generation;
         copy.parentsName = original.parentsName;
-
     }
+    
     GameObject InstantiateEmpty(Transform parent, string name) {
-        
         GameObject obj = Instantiate(
             emptyPrefab,
             new Vector3(0, 0, 0),
@@ -315,10 +308,3 @@ public class Ancestree : MonoBehaviour {
     }
 
 }
-
-// ancCircR
-// ancCircL
-// ancFrac
-
-// desCircR
-// desCircL

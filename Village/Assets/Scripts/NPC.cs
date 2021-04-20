@@ -53,13 +53,11 @@ public class NPC : MonoBehaviour {
     // // // //
    
     void Awake() {
-
        //genome = GetComponent<Genome>();
        //chars.scale = transform.localScale;
-    
     }
-    void Start() {
 
+    void Start() {
         gameObject.name = genome.firstName;
         transform.localScale = genome.scale;
         GetComponent<SpriteRenderer>().color = genome.color;
@@ -78,10 +76,9 @@ public class NPC : MonoBehaviour {
         angle = Stat.RandAngle();
         staminaRel = genome.stamina;
         speedRel = genome.speed;
-        
     }
-    void Update() {
 
+    void Update() {
         lifeTime += Time.deltaTime * WorldControl.speed;
         
         //receptive = childCount < wc.childCap && !growing && !pregnant && lifeTime - lastIntercourse > wc.intercourseCD;
@@ -91,10 +88,9 @@ public class NPC : MonoBehaviour {
             Ancestree.SubjectGenome = genome;
             SceneManager.LoadScene("Ancestree");
         }
-
     }
-    void FixedUpdate() {
 
+    void FixedUpdate() {
         if (targetTrans != null) { state = State.Moving; }
         else { state = State.Idling; }
 
@@ -129,14 +125,11 @@ public class NPC : MonoBehaviour {
             Stat.People.Remove(gameObject);
             Destroy(gameObject);
         }
-
-        
     }
 
-
     // movement
-    void Move() {
 
+    void Move() {
         Home(targetTrans.position);
         if (!targetTrans.gameObject.GetComponent<NPC>().receptive) {
             targetTrans = null;
@@ -151,10 +144,9 @@ public class NPC : MonoBehaviour {
                 targetTrans = GetClosestMate(); 
             }
         }*/
-
     }
-    void Idle() {
 
+    void Idle() {
         idleTime += Time.fixedDeltaTime * WorldControl.speed;
 
         if (idleTime > Stat.RandFloat(1, 3)) {
@@ -168,10 +160,9 @@ public class NPC : MonoBehaviour {
             Vector3 v = WorldControl.speed * speedRel / 2 / 100 * Stat.TrigOneByAngle(angle);
             transform.position += v;
         }
-
     }
-    void Home(Vector3 target) {
 
+    void Home(Vector3 target) {
         // speed & charge
         if (!charging && staminaRel > 0) {
             staminaRel -= 0.02f;
@@ -188,10 +179,9 @@ public class NPC : MonoBehaviour {
 
         Vector3 v = WorldControl.speed * speedRel / 100 * Stat.TrigOne(target - transform.position);
         transform.position += v;
-
     }
-    float Accelerate(float v, float v1) {
 
+    float Accelerate(float v, float v1) {
         // if v != v1
         if (Mathf.Abs(v1 - v) > 0.1f) {
             v += (v1 - v) / 20;
@@ -202,8 +192,8 @@ public class NPC : MonoBehaviour {
     }
 
     // reproduction
-    Transform GetClosestMate() {
 
+    Transform GetClosestMate() {
         Transform closestMate = null;
         float magDifSqrShortest = Mathf.Infinity;
 
@@ -219,9 +209,9 @@ public class NPC : MonoBehaviour {
         }
 
         return closestMate;
-    }  
-    void Birth() {
+    }
 
+    void Birth() {
         GameObject child = Instantiate(
             npcPrefab,
             transform.position,
@@ -231,10 +221,9 @@ public class NPC : MonoBehaviour {
         //Dna(child);
         //child.AddComponent<Genome>();
         child.GetComponent<NPC>().genome = new Genome(genome, mateGenome);
-
     }
+
     void Dna(GameObject child) {
-        
         Genome childGenome = child.GetComponent<Genome>();
 
         // temp
@@ -260,10 +249,9 @@ public class NPC : MonoBehaviour {
         //child.GetComponent<NPC>().lifeTime = 0;
         //child.GetComponent<NPC>().childCount = 0;
         //SetAncestorGenomes(childGenome, mateGenome);
-
     }
-    bool Compatable(NPC mate) {
 
+    bool Compatable(NPC mate) {
         bool age = Mathf.Abs(lifeTime - mate.lifeTime) < 50;
         bool gen = genome.generation == mate.genome.generation;
         bool sex = genome.sex != mate.genome.sex;
@@ -272,8 +260,9 @@ public class NPC : MonoBehaviour {
         return gen && sex && receptive;
     }
 
-    void SetAncestorGenomes(Genome childGenome, Genome mateGenome) {
+    //
 
+    void SetAncestorGenomes(Genome childGenome, Genome mateGenome) {
         childGenome.ancestors[genome.sex + ""] = genome;
         childGenome.ancestors[mateGenome.sex + ""] = mateGenome;
 
@@ -283,11 +272,11 @@ public class NPC : MonoBehaviour {
         foreach (string key in mateGenome.ancestors.Keys) {
             childGenome.ancestors[mateGenome.sex + key] = mateGenome.ancestors[key];
         }
-
     }
 
+    // collisions
+
     private void OnCollisionEnter2D(Collision2D other) {
-        
         if (other.gameObject.tag == "Solid") {
             //angle += Mathf.PI; // bättre sätt att resetta?
         }
@@ -315,20 +304,6 @@ public class NPC : MonoBehaviour {
             }
 
         }
-
     }
 
 }
-
-// idle funkar inte?
-
-// koka ihop dna vid intercourse
-
-// sök bara upp kvinnor som inte är relaterade
-
-// home med sphere
-// homeSmart
-
-// ett bra system för när och hur de ska gå respektive vila
-
-// grow inte z

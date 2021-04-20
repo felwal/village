@@ -32,7 +32,6 @@ public class Tree : MonoBehaviour {
     // // // //
 
     void Start() {
-        
         gameObject.name = genome.firstName;
         transform.localScale = genome.scale;
         GetComponent<SpriteRenderer>().color = genome.color;
@@ -47,21 +46,18 @@ public class Tree : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         if (npcParent == null) { npcParent = GameObject.Find("Entities/NPC:s").transform; }
-        
     }
 
     void Update() {
-        
         lifeTime += Time.deltaTime * WorldControl.speed;
         
         if (fertile) {
             seedDate = lifeTime;
             Seed();
         }
-
     }
-    void FixedUpdate() {
 
+    void FixedUpdate() {
         // grow
         if (transform.localScale.x < genome.scale.x) {
             transform.localScale *= 1.0001f * WorldControl.speed; // inte z, hur?
@@ -77,11 +73,11 @@ public class Tree : MonoBehaviour {
             Stat.People.Remove(gameObject);
             Destroy(gameObject);
         }
-
     }
 
-    void Seed() {
+    //
 
+    void Seed() {
         for (int i = 0; i < Stat.RandInt(0,2); i++) {
             GameObject seed = Instantiate(
                 treePrefab,
@@ -93,8 +89,6 @@ public class Tree : MonoBehaviour {
             seedCount++;
             //seed.transform.localScale = new Vector2(0,0);
         }
-        
     }
-
 
 }

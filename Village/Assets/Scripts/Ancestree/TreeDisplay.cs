@@ -21,14 +21,12 @@ public class TreeDisplay : MonoBehaviour {
     // // // //
 
     void Start() {
-
         tree = GameObject.Find("GameWorld/People").GetComponent<Ancestree>();
         //cam = GameObject.Find("GameWorld/Main Camera").GetComponent<TreeCam>();
         UpdateDisplays();
-
     }
+    
     void UpdateDisplays() {
-
         keyDisplay.text = TreeCam.targetKey + "_";
         relDisplay.text = Stat.KeyToRel(TreeCam.targetKey);
         relShortDisplay.text = Stat.KeyToRelShort(TreeCam.targetKey);
@@ -39,12 +37,11 @@ public class TreeDisplay : MonoBehaviour {
             speedDisplay.text = "speed: " + Ancestree.SubjectGenome.GetAncestor(TreeCam.targetKey).speed;
             staminaDisplay.text = "stamina: " + Ancestree.SubjectGenome.GetAncestor(TreeCam.targetKey).stamina;
         }
-
     }
 
     // buttons
-    public void SetKey(string target) {  
-
+    
+    public void SetKey(string target) {
         // key
         if (target == "mother" && TreeCam.targetKey.Length < Ancestree.genMax-1) {
             TreeCam.targetKey += "0";
@@ -66,14 +63,15 @@ public class TreeDisplay : MonoBehaviour {
         }
 
         UpdateDisplays();
-
     }
+
     public void LoadOverworld() {
         SceneManager.LoadScene("Overworld");
     }
 
+    //
+    
     void UpdateTargetKey() {
-
         // hoppar över en om går bak 2 steg på vägen
         // går inte bak en om går bak 1 steg på vägen
 
@@ -100,8 +98,8 @@ public class TreeDisplay : MonoBehaviour {
         for (int i = lci+1; i < TreeCam.targetKey.Length; i++) {
             TreeCam.targetKeyQueue.Add(TreeCam.targetKey.Substring(0,i+1));
         }
-
     }
+    
     int Smallest(int a, int b) {
         if (a < b) { return a; }
         else if (b < a) { return b; }
