@@ -51,7 +51,7 @@ public class Ancestree : MonoBehaviour {
             default: break;
         }
     }
-    
+
     void FixedUpdate() {
         switch (mode) {
             case Mode.AncCirc: MoveAncestorsCirc(); break;
@@ -70,7 +70,7 @@ public class Ancestree : MonoBehaviour {
             float genR = GenR(gen);
             if (gen == 0) { genR = 0; }
             float angleDif = 2 * Mathf.PI / genPop;
-            
+
             for (int n = 0; n < genPop; n++){
                 float angle = n * angleDif + angleDif / 2;
 
@@ -90,7 +90,7 @@ public class Ancestree : MonoBehaviour {
             }
         }
     }
-    
+
     void MoveAncestorsCirc() {
         // sqr?
         float camMag = TreeCam.Mag;
@@ -105,7 +105,7 @@ public class Ancestree : MonoBehaviour {
             float genMag;
             if (camMag < genP / 2) { genMag = genAmp * Mathf.Sin((camMag * 2 * Mathf.PI / genP) - Mathf.PI / 2) + genAmp; }
             else { genMag = genMagMax; }
-            
+
             // angle
             float camAngle = 0;
             float genAngle = 0;
@@ -114,12 +114,12 @@ public class Ancestree : MonoBehaviour {
                 genAngle = camAngle + Mathf.PI;
             }
             if (TreeCam.trans.position.y < 0) { genAngle = -genAngle; }
-            
+
             genParents[gen].position = Stat.VectorByAngle(genMag, genAngle);
-            
+
         }
     }
-    
+
     // anc fractal -2
 
     void SpawnAncestorsFrac() {
@@ -127,7 +127,7 @@ public class Ancestree : MonoBehaviour {
         Vector2 childPos = new Vector2(0,0);
         positions.Add("", childPos);
         CalcParentsFrac("", childPos, l0, -1);
-        
+
         // instantiate
         for (int gen = 0; gen < genMax; gen++) {
             genParents[gen] = InstantiateEmpty(transform, "gen " + gen).transform;
@@ -157,7 +157,7 @@ public class Ancestree : MonoBehaviour {
 
         bodyPrefab.transform.localScale = new Vector3(1,1,1);
     }
-    
+
     void CalcParentsFrac(string childKey, Vector2 childPos, float l, int dir) {
         if (childKey.Length < genMax) {
 
@@ -169,7 +169,7 @@ public class Ancestree : MonoBehaviour {
 
             Vector2 dis;
             if (gen % 2 == 0) { dis = new Vector2(1,0); } // even -> change x
-            else { dir *= -1; dis = new Vector2(0,1); } // odd -> change y & dir 
+            else { dir *= -1; dis = new Vector2(0,1); } // odd -> change y & dir
             dis *= dir * l;
 
             Vector2 motherPos = childPos + dis;
@@ -195,7 +195,7 @@ public class Ancestree : MonoBehaviour {
         Vector2 origin = new Vector2(0,0);
         positions.Add("", origin);
         angles.Add("", (float)Math.PI*3/2);
-        
+
         float r0 = 10f;
 
         Transform originParent = InstantiateEmpty(transform, "gen " + 0).transform;
@@ -249,7 +249,7 @@ public class Ancestree : MonoBehaviour {
 
         // des
         for (int gen = 1; gen <= desMax; gen++) {
-            
+
             desParent[gen] = InstantiateEmpty(transform, "gen " + (gen+1)).transform;
 
 
@@ -261,11 +261,11 @@ public class Ancestree : MonoBehaviour {
     public static int GenPop(int gen) {
         return (int)Mathf.Pow(2, gen);
     }
-    
+
     public static float GenR(int gen) {
         return (GenPop(gen) * ΔL) / (2 * Mathf.PI); // ur omkrets
     }
-    
+
     public static float GenMagMax(int gen) {
         return GenR(gen) - ΔR * gen; // = genR - genP (något samband?)
     }
@@ -278,11 +278,11 @@ public class Ancestree : MonoBehaviour {
         if (gen == 0) { key = ""; }
         return key;
     }
-    
+
     static string GetChildKey(string parentKey) {
         return parentKey.Substring(0, parentKey.Length-1);
     }
-    
+
     static void CopyChars(Genome original, Genome copy) {
         // constructor / struct?
 
@@ -296,7 +296,7 @@ public class Ancestree : MonoBehaviour {
         copy.generation = original.generation;
         copy.parentsName = original.parentsName;
     }
-    
+
     GameObject InstantiateEmpty(Transform parent, string name) {
         GameObject obj = Instantiate(
             emptyPrefab,

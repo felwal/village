@@ -11,7 +11,7 @@ public class Genome {
     public string lastName;
     public string[] parentsName = new string[2]; // temp
     public int generation = 1;
- 
+
     public Dictionary<string, Genome> ancestors = new Dictionary<string, Genome>(); // -> parents
     public Dictionary<string, Genome> descendants = new Dictionary<string, Genome>(); // -> children
 
@@ -21,7 +21,7 @@ public class Genome {
     // abstract
     public Vector3 scale;
     public Color color;
-    
+
     // primary
     public int sex;
     public float speed;
@@ -31,7 +31,7 @@ public class Genome {
 
     // // // //
 
-    public Genome(Genome P0, Genome P1) {   
+    public Genome(Genome P0, Genome P1) {
         parents.Add(P0);
         parents.Add(P1);
         Genome G00, G01, G10, G11;
@@ -54,7 +54,7 @@ public class Genome {
         scale = Stat.Mutate() ? Stat.ToVector3(Stat.RandExp(1, 1.5f, false), 1) : (Stat.Coinflip() ? P0.scale : P1.scale);
 
         color = Stat.Mutate() ? Stat.RandColor() : Stat.DominantColor(
-            Stat.Coinflip() ? G00.color : G01.color, 
+            Stat.Coinflip() ? G00.color : G01.color,
             Stat.Coinflip() ? G10.color : G11.color);
     }
 

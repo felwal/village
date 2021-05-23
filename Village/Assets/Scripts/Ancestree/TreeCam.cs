@@ -32,7 +32,7 @@ public class TreeCam : MonoBehaviour {
 
         targetPosCirc = CalcPosCirc();
     }
-    
+
     void FixedUpdate() {
         switch (tree.mode) {
             case Ancestree.Mode.AncCirc: HomeCirc(); break;
@@ -71,7 +71,7 @@ public class TreeCam : MonoBehaviour {
             }
         }
     }
-    
+
     void HomeCirc() {
         Vector2 pos = Stat.ToVector2(transform.position);
 
@@ -102,11 +102,11 @@ public class TreeCam : MonoBehaviour {
             transform.position += new Vector3(-v, 0);
         } // left
     }
-    
+
     void ZoomMan() {
         float v = 0.02f * Mathf.Abs(transform.position.z);
 
-        // zoom in 
+        // zoom in
         // && transform.position.z < -10
         if (Input.GetKey(KeyCode.E)) {
             transform.position += new Vector3(0, 0, v);
@@ -126,7 +126,7 @@ public class TreeCam : MonoBehaviour {
         else {
             float camMagMax = Ancestree.ΔR * gen;
             float genMagMax = Ancestree.GenMagMax(gen);
-        
+
             float n = Stat.KeyToInt(targetKey);
             float genPop = Ancestree.GenPop(gen);
             float genR = Ancestree.GenR(gen);

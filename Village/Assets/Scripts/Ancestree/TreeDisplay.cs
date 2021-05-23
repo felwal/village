@@ -25,7 +25,7 @@ public class TreeDisplay : MonoBehaviour {
         //cam = GameObject.Find("GameWorld/Main Camera").GetComponent<TreeCam>();
         UpdateDisplays();
     }
-    
+
     void UpdateDisplays() {
         keyDisplay.text = TreeCam.targetKey + "_";
         relDisplay.text = Stat.KeyToRel(TreeCam.targetKey);
@@ -40,7 +40,7 @@ public class TreeDisplay : MonoBehaviour {
     }
 
     // buttons
-    
+
     public void SetKey(string target) {
         // key
         if (target == "mother" && TreeCam.targetKey.Length < Ancestree.genMax-1) {
@@ -51,7 +51,7 @@ public class TreeDisplay : MonoBehaviour {
         }
         else if (target == "child" && TreeCam.targetKey.Length > 0) {
             TreeCam.targetKey = TreeCam.targetKey.Substring(0, TreeCam.targetKey.Length - 1);
-        }     
+        }
 
         // target
         if (tree.mode == Ancestree.Mode.AncCirc) {
@@ -70,7 +70,7 @@ public class TreeDisplay : MonoBehaviour {
     }
 
     //
-    
+
     void UpdateTargetKey() {
         // hoppar över en om går bak 2 steg på vägen
         // går inte bak en om går bak 1 steg på vägen
@@ -81,7 +81,7 @@ public class TreeDisplay : MonoBehaviour {
         }
 
         // get lastCommonIndex
-        int lci = -1; 
+        int lci = -1;
         for (int i = 0; i < Smallest(TreeCam.targetKey.Length, TreeCam.lastTargetKey.Length); i++) {
             if(TreeCam.lastTargetKey[i] == TreeCam.targetKey[i]) {
                 lci = i;
@@ -99,7 +99,7 @@ public class TreeDisplay : MonoBehaviour {
             TreeCam.targetKeyQueue.Add(TreeCam.targetKey.Substring(0,i+1));
         }
     }
-    
+
     int Smallest(int a, int b) {
         if (a < b) { return a; }
         else if (b < a) { return b; }

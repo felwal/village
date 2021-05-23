@@ -217,7 +217,7 @@ public static class Stat {
 
         return false;
     }
-    
+
     // array
 
     public static string[] FlattenArray(string[,,] multi3D) {
@@ -244,7 +244,7 @@ public static class Stat {
         for (int i = 0; i < a2.Length; i++) {
             if (!list.Contains(a2[i])) { list.Add(a2[i]); }
         }
-        
+
         return list.ToArray();
     }
 
@@ -279,7 +279,7 @@ public static class Stat {
 
         return list.ToArray();
     }
-    
+
     // list
 
     public static void RemoveRange(List<string> original, List<string> remove) {
@@ -450,7 +450,7 @@ public static class Stat {
         int keyConverted = Convert.ToInt32(key, 2);
         return keyConverted;
     }
-    
+
     public static int KeySex(string key) {
         if (key.Length == 0) { return -1; }
         return key[key.Length-1];

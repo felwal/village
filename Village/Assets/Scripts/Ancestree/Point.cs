@@ -8,7 +8,7 @@ public class Point : MonoBehaviour {
 
     public Genome genome { get; set; }
     Ancestree tree;
-    
+
     //public Transform people;
     //public GameObject parentsPrefab;
 

@@ -29,7 +29,7 @@ public class Display : MonoBehaviour {
 
     void Update() {
         UpdateDisplays();
-    } 
+    }
 
     //
 
@@ -55,14 +55,12 @@ public class Display : MonoBehaviour {
             staminaDisplay.text = "";
         }
     }
-    
+
     // buttons
 
     public void LoadTree() {
-
         Ancestree.SubjectGenome = contactGenome;
         SceneManager.LoadScene("Ancestree");
-
     }
 
 }

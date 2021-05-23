@@ -50,7 +50,7 @@ public class Tree : MonoBehaviour {
 
     void Update() {
         lifeTime += Time.deltaTime * WorldControl.speed;
-        
+
         if (fertile) {
             seedDate = lifeTime;
             Seed();
@@ -64,8 +64,8 @@ public class Tree : MonoBehaviour {
             growing = true;
         }
         else {
-            growing = false; 
-            transform.localScale = genome.scale; 
+            growing = false;
+            transform.localScale = genome.scale;
         }
 
         // die

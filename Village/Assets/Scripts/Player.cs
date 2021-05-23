@@ -13,7 +13,7 @@ public class Player : MonoBehaviour {
 
     void Start() {
         genome = new Genome(new Genome(0), new Genome(1));
-        
+
         rb = GetComponent<Rigidbody2D>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 

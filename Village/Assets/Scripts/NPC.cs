@@ -35,7 +35,7 @@ public class NPC : MonoBehaviour {
     float angle;
     float speedRel;
     float staminaRel;
-    
+
     // classes
     Rigidbody2D rb;
     Genome mateGenome;
@@ -51,7 +51,7 @@ public class NPC : MonoBehaviour {
     public State state = State.Idling;
 
     // // // //
-   
+
     void Awake() {
        //genome = GetComponent<Genome>();
        //chars.scale = transform.localScale;
@@ -80,7 +80,7 @@ public class NPC : MonoBehaviour {
 
     void Update() {
         lifeTime += Time.deltaTime * WorldControl.speed;
-        
+
         //receptive = childCount < wc.childCap && !growing && !pregnant && lifeTime - lastIntercourse > wc.intercourseCD;
 
         // enter tree
@@ -105,8 +105,8 @@ public class NPC : MonoBehaviour {
             growing = true;
         }
         else {
-            growing = false; 
-            transform.localScale = genome.scale; 
+            growing = false;
+            transform.localScale = genome.scale;
         }
 
         // pregnant
@@ -139,9 +139,9 @@ public class NPC : MonoBehaviour {
         /*else {
             t += Time.fixedDeltaTime * WorldControl.speed;
             Idle();
-            if (receptive && t > 2) { 
-                t = 0; 
-                targetTrans = GetClosestMate(); 
+            if (receptive && t > 2) {
+                t = 0;
+                targetTrans = GetClosestMate();
             }
         }*/
     }
@@ -198,7 +198,7 @@ public class NPC : MonoBehaviour {
         float magDifSqrShortest = Mathf.Infinity;
 
         foreach (GameObject person in Stat.People) {
-            if (Compatable(person.GetComponent<NPC>())) { 
+            if (Compatable(person.GetComponent<NPC>())) {
 
                 float magDifSqr = (person.transform.position - transform.position).sqrMagnitude;
                 if (magDifSqr < magDifSqrShortest) {
@@ -287,7 +287,7 @@ public class NPC : MonoBehaviour {
             // arrived - reset target
             if (other.gameObject.transform == targetTrans) {
                 targetTrans = null;
-            } 
+            }
 
             // intercourse
             if (Compatable(other.gameObject.GetComponent<NPC>())) {
